@@ -17,14 +17,40 @@ public class Player : MonoBehaviour
         MoveDuration = CommandDuration > MoveDuration ? MoveDuration : CommandDuration;
         //MoveDuration이 CommandDuration보다 작은 경우 CommandDuration으로 변경
     }
-    private void Move(Vector3 direction) // 움직임
+    private Action DirectionBlocked(Vector3 direction)
     {
-        if(!MovingFlag && !CheckObstacle(direction)) //Tween재생 확인 및 장애물 유무 체크
+        if (direction == Vector3.left)
+            return Action.LeftBlocked;
+        else if (direction == Vector3.right)
+            return Action.RightBlocked;
+        else if (direction == Vector3.forward)
+            return Action.ForwardBlocked;
+        else if (direction == Vector3.back)
+            return Action.BackwardBlocked;
+        return Action.None;
+    }
+    private Action DirectionMove(Vector3 direction)
+    {
+        if (direction == Vector3.left)
+            return Action.MoveLeft;
+        else if (direction == Vector3.right)
+            return Action.MoveRight;
+        else if (direction == Vector3.forward)
+            return Action.MoveForward;
+        else if (direction == Vector3.back)
+            return Action.MoveBackward;
+        return Action.None;
+    }
+    private Action Move(Vector3 direction) // 움직임
+    {
+        if (!MovingFlag && !CheckObstacle(direction)) //Tween재생 확인 및 장애물 유무 체크
         {
             MovingFlag = true;
-            transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
+           transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
                 .OnComplete(() => { MovingFlag = false; }); // direction으로 Offset만큼 Duration동안 이동
+            return DirectionMove(direction);
         }
+        return DirectionBlocked(direction);
     }
 
     private bool CheckObstacle(Vector3 direction) //RayCast로 장애물 감지
@@ -40,16 +66,17 @@ public class Player : MonoBehaviour
         return result && hit.collider.CompareTag("Obstacle"); //태그 비교해서 반환
     }
 
-    public void Excute(Command cmd) //커맨드 실행
+    public Action Excute(Command cmd) //커맨드 실행
     {
         if (cmd == Command.MoveForward)
-            Move(Vector3.forward);
+          return Move(Vector3.forward);
         else if (cmd == Command.MoveBackward)
-            Move(Vector3.back);
+            return Move(Vector3.back);
         else if (cmd == Command.MoveLeft)
-            Move(Vector3.left);
+            return Move(Vector3.left);
         else if (cmd == Command.MoveRight)
-            Move(Vector3.right);
+            return Move(Vector3.right);
+        return Action.None;
     }
     public void ReverseExcute(Command cmd) //커맨드 반대로 실행
     {

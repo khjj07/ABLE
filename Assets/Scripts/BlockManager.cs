@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using DG.Tweening;
 public class BlockManager : Singleton<BlockManager>
 {
     public Player player; //player참조
     public List<Command> CommandList = new List<Command>(); //Inspecter 창에서 커맨드 리스트 지정가능
+    public Stack<Action> ActionStack = new Stack<Action>();
     public float CommandDuration = 1f; //명령 Duration
     public int CommandPointer = 0; //명령 배열 포인터
 
@@ -26,49 +28,66 @@ public class BlockManager : Singleton<BlockManager>
         Playing = true;
         while (CommandPointer<CommandList.Count)
         {
-            player.Excute(CommandList[CommandPointer]);
+            ActionStack.Push(player.Excute(CommandList[CommandPointer]));
             CommandPointer++;
             yield return new WaitForSeconds(CommandDuration);
         }
         Playing = false;
+
         yield return 0;
     }
     public IEnumerator StepForwardCommands() //한 블럭씩 재생 Coroutine
     {
-        Playing = true;
-        player.Excute(CommandList[CommandPointer]);
-        CommandPointer++;
-        yield return new WaitForSeconds(CommandDuration);
-        Playing = false;
-        yield return 0;
+        if (CommandPointer < CommandList.Count)
+        {
+            Playing = true;
+            ActionStack.Push(player.Excute(CommandList[CommandPointer]));
+            CommandPointer++;
+            yield return new WaitForSeconds(CommandDuration);
+            Playing = false;
+            yield return 0;
+        }
     }
     public IEnumerator StepBackwardCommands() //한 블럭씩 역재생 Coroutine
     {
-        Playing = true;
-        --CommandPointer;
-        player.ReverseExcute(CommandList[CommandPointer]);
-        yield return new WaitForSeconds(CommandDuration);
-        Playing = false;
-        yield return 0;
+        if (CommandPointer > 0)
+        {
+            Action PopedAction = ActionStack.Pop();
+            --CommandPointer;
+            if (PopedAction == Action.MoveForward || PopedAction == Action.MoveBackward || PopedAction == Action.MoveLeft || PopedAction == Action.MoveRight)
+            {
+                Playing = true;
+                player.ReverseExcute(CommandList[CommandPointer]);
+                yield return new WaitForSeconds(CommandDuration);
+                Playing = false;
+            }
+            yield return 0;
+        }
     }
     public void StopCommands() //정지
     {
         StopAllCoroutines();
         CommandPointer = 0;
         Playing = false;
-        transform.position= InitialPosition; //처음위치로
+        StartCoroutine(ResetPosition());
     }
+
     public void PauseCommands() //일시정지
     {
         StopAllCoroutines();
         Playing = false;
     }
    
+    public IEnumerator ResetPosition()
+    {
+        yield return new WaitUntil(() => !DOTween.IsTweening(player.transform));
+        player.transform.position = InitialPosition; //처음위치로
+    }
 
 
     void Start()
     {
-        InitialPosition = transform.position;//최초 위치 저장
+        InitialPosition = player.transform.position;//최초 위치 저장
         //Input에 따른 재생 스트림
         this.UpdateAsObservable()
            .Where(_ => Input.GetKeyDown(Play) && !Playing)
