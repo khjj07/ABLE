@@ -18,6 +18,7 @@ public class BlockManager : Singleton<BlockManager>
     public KeyCode Pause = KeyCode.Alpha5;
     //상호작용 키 목록
     private bool Playing=false; //중복 실행 방지
+    private Vector3 InitialPosition;
 
 
     public IEnumerator PlayCommands() //재생 Coroutine
@@ -55,16 +56,19 @@ public class BlockManager : Singleton<BlockManager>
         StopAllCoroutines();
         CommandPointer = 0;
         Playing = false;
+        transform.position= InitialPosition; //처음위치로
     }
     public void PauseCommands() //일시정지
     {
         StopAllCoroutines();
         Playing = false;
     }
+   
 
 
     void Start()
     {
+        InitialPosition = transform.position;//최초 위치 저장
         //Input에 따른 재생 스트림
         this.UpdateAsObservable()
            .Where(_ => Input.GetKeyDown(Play) && !Playing)
