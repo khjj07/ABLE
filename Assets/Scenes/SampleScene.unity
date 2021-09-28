@@ -143,6 +143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 149167179}
+  - component: {fileID: 149167180}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -164,6 +165,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &149167180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149167178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a339fac48d7821a4daf3d7c00c0134c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 18247717}
+  CommandList: 00000000000000000000000000000000
+  CommandDuration: 0.2
+  CommandPointer: 0
+  Play: 49
+  StepForward: 50
+  StepBackward: 51
+  Stop: 52
+  Pause: 53
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +392,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 18247717}
+  Forward: 119
+  Backward: 115
+  Left: 97
+  Right: 100
 --- !u!4 &1210239703
 Transform:
   m_ObjectHideFlags: 0
