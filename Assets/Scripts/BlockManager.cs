@@ -4,6 +4,8 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using DG.Tweening;
+using UnityEngine.XR.ARFoundation;
+
 public class BlockManager : Singleton<BlockManager>
 {
     public Player player; //player참조
@@ -22,6 +24,7 @@ public class BlockManager : Singleton<BlockManager>
     private bool Playing=false; //중복 실행 방지
     private Vector3 InitialPosition;
 
+    public ARTrackedImageManager m_TrackedImageManager;
 
     public IEnumerator PlayCommands() //재생 Coroutine
     {
@@ -52,9 +55,9 @@ public class BlockManager : Singleton<BlockManager>
     {
         if (CommandPointer > 0)
         {
-            Action PopedAction = ActionStack.Pop();
+            Action PoppedAction = ActionStack.Pop();
             --CommandPointer;
-            if (PopedAction == Action.MoveForward || PopedAction == Action.MoveBackward || PopedAction == Action.MoveLeft || PopedAction == Action.MoveRight)
+            if (PoppedAction == Action.MoveForward || PoppedAction == Action.MoveBackward || PoppedAction == Action.MoveLeft || PoppedAction == Action.MoveRight)
             {
                 Playing = true;
                 player.ReverseExcute(CommandList[CommandPointer]);
@@ -116,4 +119,33 @@ public class BlockManager : Singleton<BlockManager>
 
         //Input에 따른 재생 스트림
     }
+
+
+
+    void OnEnable() => m_TrackedImageManager.trackedImagesChanged += OnChanged;
+
+    void OnDisable() => m_TrackedImageManager.trackedImagesChanged -= OnChanged;
+
+    void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
+    {
+        foreach (var newImage in eventArgs.added)
+        {
+            if (newImage.referenceImage.name.Contains("Block"))
+            {
+
+            }
+
+        }
+
+        foreach (var updatedImage in eventArgs.updated)
+        {
+            // Handle updated event
+        }
+
+        foreach (var removedImage in eventArgs.removed)
+        {
+            // Handle removed event
+        }
+    }
+
 }
