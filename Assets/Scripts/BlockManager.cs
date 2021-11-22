@@ -9,6 +9,7 @@ using UnityEngine.XR.ARFoundation;
 public class BlockManager : Singleton<BlockManager>
 {
     public Player player; //player참조
+    public List<CommandPattern> PairedList = new List<CommandPattern>();    // 정렬을 위한 list
     public List<Command> CommandList = new List<Command>(); //Inspecter 창에서 커맨드 리스트 지정가능
     public Stack<Action> ActionStack = new Stack<Action>();
     public float CommandDuration = 1f; //명령 Duration
@@ -128,15 +129,32 @@ public class BlockManager : Singleton<BlockManager>
 
     void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
+
         foreach (var newImage in eventArgs.added)
         {
-            if (newImage.referenceImage.name.Contains("Block"))
+            var name = newImage.referenceImage.name.ToLower();
+            if (name.Contains("forward"))
             {
-
+                PairedList.Add(new CommandPattern((int)Command.MoveForward, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
+            }
+            else if (name.Contains("backward"))
+            {
+                PairedList.Add(new CommandPattern((int)Command.MoveBackward, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
+            }
+            else if (name.Contains("right"))
+            {
+                PairedList.Add(new CommandPattern((int)Command.MoveRight, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
+            }
+            else if (name.Contains("left")){
+                PairedList.Add(new CommandPattern((int)Command.MoveLeft, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
             }
 
         }
-
+/* 개발 진행중*/
+/*          PairedList.Sort(delegate CommandPattern (CommandPattern p1, CommandPattern p2) => { return p1.distance > p2.distance});
+*//*        Delegate 형식으로 작성할 예정 입니다.*/
+/*        PairedList.Sort( (double value) => { })
+*/
         foreach (var updatedImage in eventArgs.updated)
         {
             // Handle updated event
