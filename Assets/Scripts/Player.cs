@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        float CommandDuration = BlockManager.instance.CommandDuration;
+        float CommandDuration = BlockManager.instance.ActDuration;
         MoveDuration = CommandDuration > MoveDuration ? MoveDuration : CommandDuration;
         //MoveDuration이 CommandDuration보다 작은 경우 CommandDuration으로 변경
     }

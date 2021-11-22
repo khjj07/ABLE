@@ -11,7 +11,7 @@ public class BlockManager : Singleton<BlockManager>
     public Player player; //player참조
     public List<Command> CommandList = new List<Command>(); //Inspecter 창에서 커맨드 리스트 지정가능
     public Stack<Action> ActionStack = new Stack<Action>();
-    public float CommandDuration = 1f; //명령 Duration
+    public float ActDuration = 1f; //명령 Duration
     public int CommandPointer = 0; //명령 배열 포인터
 
     //상호작용 키 목록
@@ -33,7 +33,7 @@ public class BlockManager : Singleton<BlockManager>
         {
             ActionStack.Push(player.Excute(CommandList[CommandPointer]));
             CommandPointer++;
-            yield return new WaitForSeconds(CommandDuration);
+            yield return new WaitForSeconds(ActDuration);
         }
         Playing = false;
 
@@ -46,7 +46,7 @@ public class BlockManager : Singleton<BlockManager>
             Playing = true;
             ActionStack.Push(player.Excute(CommandList[CommandPointer]));
             CommandPointer++;
-            yield return new WaitForSeconds(CommandDuration);
+            yield return new WaitForSeconds(ActDuration);
             Playing = false;
             yield return 0;
         }
@@ -61,7 +61,7 @@ public class BlockManager : Singleton<BlockManager>
             {
                 Playing = true;
                 player.ReverseExcute(CommandList[CommandPointer]);
-                yield return new WaitForSeconds(CommandDuration);
+                yield return new WaitForSeconds(ActDuration);
                 Playing = false;
             }
             yield return 0;
