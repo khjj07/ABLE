@@ -199,7 +199,8 @@ public class BlockManager : Singleton<BlockManager>
 
     void Update()
     {
-      //정렬 코드 여기에
+        //정렬 코드 여기에
+        NodeList.Sort(new CommandComparer());
     }
     void OnEnable() => m_TrackedImageManager.trackedImagesChanged += OnChanged;
 
