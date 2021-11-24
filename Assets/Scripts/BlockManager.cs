@@ -9,32 +9,39 @@ using UnityEngine.XR.ARFoundation;
 public class BlockManager : Singleton<BlockManager>
 {
     public Player player; //player참조
-    public List<CommandPattern> PairedList = new List<CommandPattern>();    // 정렬을 위한 list
-    public List<Command> CommandList = new List<Command>(); //Inspecter 창에서 커맨드 리스트 지정가능
+    public List<CommandNode> NodeList = new List<CommandNode>();   // 정렬을 위한 list
+    public List<GameObject> MarkerList = new List<GameObject>();
+    public GameObject Marker;
     public Stack<Action> ActionStack = new Stack<Action>();
-    public float CommandDuration = 1f; //명령 Duration
-    public int CommandPointer = 0; //명령 배열 포인터
+    public float ActDuration = 1f; //명령 Duration
+    public int NodePointer = 0; //명령 배열 포인터
 
     //상호작용 키 목록
-    public KeyCode Play=KeyCode.Alpha1;
+    public KeyCode Play = KeyCode.Alpha1;
     public KeyCode StepForward = KeyCode.Alpha2;
     public KeyCode StepBackward = KeyCode.Alpha3;
     public KeyCode Stop = KeyCode.Alpha4;
     public KeyCode Pause = KeyCode.Alpha5;
     //상호작용 키 목록
-    private bool Playing=false; //중복 실행 방지
+    private bool Playing = false; //중복 실행 방지
     private Vector3 InitialPosition;
-
+    public Camera camera;
     public ARTrackedImageManager m_TrackedImageManager;
+
+    public void play()
+    {
+        StartCoroutine(PlayCommands());
+    }
+
 
     public IEnumerator PlayCommands() //재생 Coroutine
     {
         Playing = true;
-        while (CommandPointer<CommandList.Count)
+        while (NodePointer < NodeList.Count)
         {
-            ActionStack.Push(player.Excute(CommandList[CommandPointer]));
-            CommandPointer++;
-            yield return new WaitForSeconds(CommandDuration);
+            ActionStack.Push(player.Excute(NodeList[NodePointer].command));
+            NodePointer++;
+            yield return new WaitForSeconds(ActDuration);
         }
         Playing = false;
 
@@ -42,27 +49,27 @@ public class BlockManager : Singleton<BlockManager>
     }
     public IEnumerator StepForwardCommands() //한 블럭씩 재생 Coroutine
     {
-        if (CommandPointer < CommandList.Count)
+        if (NodePointer < NodeList.Count)
         {
             Playing = true;
-            ActionStack.Push(player.Excute(CommandList[CommandPointer]));
-            CommandPointer++;
-            yield return new WaitForSeconds(CommandDuration);
+            ActionStack.Push(player.Excute(NodeList[NodePointer].command));
+            NodePointer++;
+            yield return new WaitForSeconds(ActDuration);
             Playing = false;
             yield return 0;
         }
     }
     public IEnumerator StepBackwardCommands() //한 블럭씩 역재생 Coroutine
     {
-        if (CommandPointer > 0)
+        if (NodePointer > 0)
         {
             Action PoppedAction = ActionStack.Pop();
-            --CommandPointer;
+            --NodePointer;
             if (PoppedAction == Action.MoveForward || PoppedAction == Action.MoveBackward || PoppedAction == Action.MoveLeft || PoppedAction == Action.MoveRight)
             {
                 Playing = true;
-                player.ReverseExcute(CommandList[CommandPointer]);
-                yield return new WaitForSeconds(CommandDuration);
+                player.ReverseExcute(NodeList[NodePointer].command);
+                yield return new WaitForSeconds(ActDuration);
                 Playing = false;
             }
             yield return 0;
@@ -71,7 +78,7 @@ public class BlockManager : Singleton<BlockManager>
     public void StopCommands() //정지
     {
         StopAllCoroutines();
-        CommandPointer = 0;
+        NodePointer = 0;
         Playing = false;
         StartCoroutine(ResetPosition());
     }
@@ -81,7 +88,7 @@ public class BlockManager : Singleton<BlockManager>
         StopAllCoroutines();
         Playing = false;
     }
-   
+
     public IEnumerator ResetPosition()
     {
         yield return new WaitUntil(() => !DOTween.IsTweening(player.transform));
@@ -92,7 +99,7 @@ public class BlockManager : Singleton<BlockManager>
     void Start()
     {
         InitialPosition = player.transform.position;//최초 위치 저장
-        //Input에 따른 재생 스트림
+        //테스트 키에 따른 재생 스트림
         this.UpdateAsObservable()
            .Where(_ => Input.GetKeyDown(Play) && !Playing)
            .Subscribe(_ => StartCoroutine(PlayCommands()))
@@ -118,51 +125,91 @@ public class BlockManager : Singleton<BlockManager>
        .Subscribe(_ => PauseCommands())
        .AddTo(gameObject); //Pause
 
-        //Input에 따른 재생 스트림
+        //테스트 키에 따른 재생 스트림
+    }
+    private Command ParseCommand(string name)
+    {
+        if (name.Contains("forward"))
+        {
+            return Command.MoveForward;
+        }
+        else if (name.Contains("backward"))
+        {
+            return Command.MoveBackward;
+        }
+        else if (name.Contains("right"))
+        {
+            return Command.MoveRight;
+        }
+        else if (name.Contains("left"))
+        {
+            return Command.MoveLeft;
+        }
+        return Command.None;
+    }
+    public void AddNode(ARTrackedImage newImage)
+    {
+        var name = newImage.referenceImage.name.ToLower();
+        Command command = ParseCommand(name);
+        Debug.LogWarning(name);
+        Debug.LogWarning((int)command);
+        Vector3 CameraPosition = camera.gameObject.transform.position;
+        Vector3 ImagePosition = newImage.transform.position;
+        GameObject new_marker = Instantiate(Marker);
+        
+        CommandNode new_node = new CommandNode(command, Vector3.Distance(CameraPosition, ImagePosition), new_marker);
+        NodeList.Add(new_node);
+        this.UpdateAsObservable()
+            .Where(_=> UpdateNode(newImage, new_node))
+            .Subscribe(_ => StartCoroutine(ChangeNodeState(newImage, new_node)))
+            .AddTo(gameObject); //노드 업데이트 스트림
+    }
+    private IEnumerator ChangeNodeState(ARTrackedImage img, CommandNode node)
+    {
+        if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking && !(node.marker.activeSelf))
+        {
+            node.marker.SetActive(true);
+            NodeList.Add(node);
+        }
+        yield return new WaitForSeconds(1f);
+        if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && node.marker.activeSelf)
+        {
+            node.marker.SetActive(false);
+            NodeList.Remove(node);
+        }
+         
+        yield return null;
+    }
+    private bool UpdateNode(ARTrackedImage img, CommandNode node)
+    {
+        Vector3 CameraPosition = camera.gameObject.transform.position;
+        Vector3 ImagePosition = img.transform.position;
+        node.marker.transform.position = ImagePosition;
+        node.distance = Vector3.Distance(CameraPosition, ImagePosition);
+        if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && node.marker.activeSelf)
+        {
+            return true;
+        }
+        else if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking && !(node.marker.activeSelf))
+        {
+            return true;
+        }
+        return false;
     }
 
-
-
+    void Update()
+    {
+      //정렬 코드 여기에
+    }
     void OnEnable() => m_TrackedImageManager.trackedImagesChanged += OnChanged;
 
     void OnDisable() => m_TrackedImageManager.trackedImagesChanged -= OnChanged;
 
     void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
-
         foreach (var newImage in eventArgs.added)
         {
-            var name = newImage.referenceImage.name.ToLower();
-            if (name.Contains("forward"))
-            {
-                PairedList.Add(new CommandPattern((int)Command.MoveForward, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
-            }
-            else if (name.Contains("backward"))
-            {
-                PairedList.Add(new CommandPattern((int)Command.MoveBackward, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
-            }
-            else if (name.Contains("right"))
-            {
-                PairedList.Add(new CommandPattern((int)Command.MoveRight, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
-            }
-            else if (name.Contains("left")){
-                PairedList.Add(new CommandPattern((int)Command.MoveLeft, Vector3.Distance(new Vector3(0, 0, 0), newImage.transform.position)));
-            }
-
-        }
-/* 개발 진행중*/
-/*          PairedList.Sort(delegate CommandPattern (CommandPattern p1, CommandPattern p2) => { return p1.distance > p2.distance});
-*//*        Delegate 형식으로 작성할 예정 입니다.*/
-/*        PairedList.Sort( (double value) => { })
-*/
-        foreach (var updatedImage in eventArgs.updated)
-        {
-            // Handle updated event
-        }
-
-        foreach (var removedImage in eventArgs.removed)
-        {
-            // Handle removed event
+            AddNode(newImage);
         }
     }
 

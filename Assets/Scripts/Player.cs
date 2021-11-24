@@ -6,14 +6,14 @@ using UniRx.Triggers;
 using UniRx;
 public class Player : MonoBehaviour
 {
-    public float MoveOffset=1f;//움직임 Offset
+    public float MoveOffset = 1f;//움직임 Offset
     public float MoveDuration = 0.5f;//움직임 Duration
     public float RayDistinctRange = 1f; //장애물 감지 Ray 거리
     private bool MovingFlag = false; //Tween 중복 방지
 
     void Start()
     {
-        float CommandDuration = BlockManager.instance.CommandDuration;
+        float CommandDuration = BlockManager.instance.ActDuration;
         MoveDuration = CommandDuration > MoveDuration ? MoveDuration : CommandDuration;
         //MoveDuration이 CommandDuration보다 작은 경우 CommandDuration으로 변경
     }
@@ -46,8 +46,8 @@ public class Player : MonoBehaviour
         if (!MovingFlag && !CheckObstacle(direction)) //Tween재생 확인 및 장애물 유무 체크
         {
             MovingFlag = true;
-           transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
-                .OnComplete(() => { MovingFlag = false; }); // direction으로 Offset만큼 Duration동안 이동
+            transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
+                 .OnComplete(() => { MovingFlag = false; }); // direction으로 Offset만큼 Duration동안 이동
             return DirectionMove(direction);
         }
         return DirectionBlocked(direction);
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         bool result = Physics.Raycast(transform.position, direction, out hit, RayDistinctRange); //RayDistinctRange 거리 만큼 Ray쏴서 장애물 존재시 True
         if (result)
         {
-            Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red); 
+            Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
         }
         else
             Debug.DrawRay(transform.position, transform.forward * RayDistinctRange, Color.red);
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     public Action Excute(Command cmd) //커맨드 실행
     {
         if (cmd == Command.MoveForward)
-          return Move(Vector3.forward);
+            return Move(Vector3.forward);
         else if (cmd == Command.MoveBackward)
             return Move(Vector3.back);
         else if (cmd == Command.MoveLeft)
