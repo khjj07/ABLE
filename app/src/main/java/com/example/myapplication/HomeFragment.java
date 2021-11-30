@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        //이제 더이상 엑티비티 참초가안됨
+        //이제 더이상 엑티비티 참조가 안됨
         activity = null;
     }
 
