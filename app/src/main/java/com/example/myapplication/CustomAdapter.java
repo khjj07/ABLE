@@ -20,10 +20,11 @@ import java.util.List;
 public class CustomAdapter extends BaseAdapter {
 
     private Context context;
+
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
 
-
+    //CustomAdapter 생성자
     public CustomAdapter(){
 
     }
@@ -32,8 +33,6 @@ public class CustomAdapter extends BaseAdapter {
     public int getCount() {
         return listViewItemList.size();
     }
-
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -45,9 +44,9 @@ public class CustomAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.row_item, parent, false);
         }
 
-        TextView tv_name = (TextView) convertView.findViewById(R.id.textView_name);
-        TextView tv_summary = (TextView) convertView.findViewById(R.id.textView_summary);
-        ImageView iv_thumb = (ImageView) convertView.findViewById(R.id.imageView_thumb);
+        TextView tv_name = (TextView) convertView.findViewById(R.id.textView_name); //맵 이름
+        TextView tv_summary = (TextView) convertView.findViewById(R.id.textView_summary); //맵에 대한 간략한 설명
+        ImageView iv_thumb = (ImageView) convertView.findViewById(R.id.imageView_thumb); //맵의 아이콘 이미지
 
         ListViewItem listViewItem = (ListViewItem) listViewItemList.get(position);
 
@@ -58,19 +57,19 @@ public class CustomAdapter extends BaseAdapter {
         return convertView;
     }
 
-    // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴. : 필수 구현
+    // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴
     @Override
     public long getItemId(int position) {
         return position ;
     }
 
-    // 지정한 위치(position)에 있는 데이터 리턴 : 필수 구현
+    // 지정한 위치(position)에 있는 데이터 리턴
     @Override
     public Object getItem(int position) {
         return listViewItemList.get(position) ;
     }
 
-    // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
+    // 아이템 데이터 추가를 위한 함수
     public void addItem(Drawable icon, String title, String desc) {
         ListViewItem item = new ListViewItem();
 

@@ -51,21 +51,15 @@ public class MainActivity extends AppCompatActivity  {
 //                startActivity(intent);
 //            }
 //        });
-        homeFragment = new HomeFragment();
-        mapFragment = new MapFragment();
-        askFragment = new AskFragment();
+        homeFragment = new HomeFragment(); //홈화면에 대한 프래그먼트 생성
+        mapFragment = new MapFragment(); //맵 선택 화면에 대한 프래그먼트 생성
+        askFragment = new AskFragment(); //Ask 화면에 대한 프래그먼트 생성
 
 
-        //제일 처음 띄워줄 뷰를 세팅해줍니다. commit();까지 해줘야 합니다.
+        //제일 처음 띄워줄 뷰를 세팅 --> 맨 처음에 로딩 후 home 화면이 뜨게 됨
         getSupportFragmentManager().beginTransaction().replace(R.id.home_ly,homeFragment).commit();
 
-
-
-
         //bottomNavigationView.setSelectedItemId(R.id.home);
-
-
-
 
 //        flipper = (ViewFlipper) findViewById(R.id.flipper);
 //        prev = (ImageButton) findViewById(R.id.prev);
@@ -84,7 +78,6 @@ public class MainActivity extends AppCompatActivity  {
     private void init() {
         home_ly = findViewById(R.id.home_ly);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
     }
 
     private void SettingListener() {
@@ -93,37 +86,36 @@ public class MainActivity extends AppCompatActivity  {
 
     class TabSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) { //하단 네비게이션바 리스너
             switch (menuItem.getItemId()) {
-                case R.id.tab_home: {
+                case R.id.tab_home: { //하단바에서 홈 아이콘 클릭시
                     onFragmentChange(0);
                     return true;
                 }
 
-                case R.id.tab_map: {
+                case R.id.tab_map: { //하단바에서 맵 아이콘 클릭시
                     onFragmentChange(1);
                     return true;
                 }
 
-                case R.id.tab_ask: {
+                case R.id.tab_ask: { //하단바에서 Ask 아이콘 클릭시
                     onFragmentChange(2);
                     return true;
                 }
             }
             return false;
-
         }
 
     }
 
-    //프래그먼트와 프래그먼트끼리 직접접근을하지않는다. 프래그먼트와 엑티비티가 접근함
+    //프래그먼트는 프래그먼트끼리 직접 소통 불가능, 프래그먼트는 액티비티를 통하여 소통
     public void onFragmentChange(int index){
         if(index == 0 ){
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_ly,  homeFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_ly,  homeFragment).commit(); //home 프래그먼트로 변경
         }else if(index == 1){
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_ly, mapFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_ly, mapFragment).commit(); //map 프래그먼트로 변경
         }else if(index == 2){
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_ly, askFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_ly, askFragment).commit(); //ask 프래그먼트로 변경
         }
     }
 

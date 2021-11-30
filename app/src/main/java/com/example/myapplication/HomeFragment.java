@@ -25,14 +25,14 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //이 메소드가 호출될떄는 프래그먼트가 엑티비티위에 올라와있는거니깐 getActivity메소드로 엑티비티참조가능
+        //이 함수가 호출될 때는 프래그먼트가 엑티비티위에 올라와있으므로 getActivity()로 MainActivity 참조 가능
         activity = (MainActivity) getActivity();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //이제 더이상 엑티비티 참조가 안됨
+        //더이상 액티비티 참조 불가능
         activity = null;
     }
 
@@ -65,19 +65,19 @@ public class HomeFragment extends Fragment {
 
         okBtn = (Button) view.findViewById(R.id.button1);
 
-        //버튼1 기능 추가
+        //HomeFragment의 ok 버튼에 대한 리스너
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.onFragmentChange(1);
+                activity.onFragmentChange(1); //ok 버튼을 클릭하면 map fragment로 전환 됨
 
-                Toast.makeText(getContext(), "버튼 클릭 ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "맵 선택 화면으로 이동합니다.", Toast.LENGTH_SHORT).show();
             }
         });
         return view;
     }
 
-    //ViewFlipper 클릭 이벤트 핸들러
+    //ViewFlipper 클릭 이벤트 핸들러 (좌우 버튼을 누르며 캐릭터 선택)
     public void onClick(View v) {
         if(v == prev) {
             flipper.showPrevious();
