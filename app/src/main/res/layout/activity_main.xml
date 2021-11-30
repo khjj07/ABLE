@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+
+    <LinearLayout
+        android:id="@+id/home_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1" />
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            tools:context=".MainActivity">-->
+
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/prev"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_alignParentLeft="true"-->
+<!--                android:layout_marginStart="50dp"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                android:layout_marginTop="250dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:maxWidth="75dp"-->
+<!--                android:maxHeight="75dp"-->
+<!--                android:onClick="onClick"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/previous"-->
+<!--                android:text="PREV"-->
+<!--                tools:ignore="MissingConstraints" />-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/next"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_marginLeft="285dp"-->
+<!--                android:layout_marginTop="250dp"-->
+<!--                android:layout_marginEnd="51dp"-->
+<!--                android:layout_marginRight="30dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:maxWidth="75dp"-->
+<!--                android:maxHeight="75dp"-->
+<!--                android:onClick="onClick"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/next"-->
+<!--                android:text="NEXT"-->
+<!--                tools:ignore="MissingConstraints" />-->
+
+<!--            <ViewFlipper-->
+<!--                android:id="@+id/flipper"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_centerInParent="true">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_weight="3"-->
+<!--                        android:src="@drawable/c1" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_weight="3"-->
+<!--                        android:src="@drawable/c2" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/img3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_weight="3"-->
+<!--                        android:src="@drawable/c3" />-->
+<!--                </LinearLayout>-->
+
+<!--            </ViewFlipper>-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/executeUnity"-->
+<!--            android:text="Execute Unity"-->
+<!--            android:layout_marginStart="290dp"-->
+<!--            android:layout_marginLeft="290dp"-->
+<!--            android:layout_marginTop="480dp"/>-->
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:menu="@menu/btm_navi_menu"
+        app:itemBackground="@color/purple_500"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</LinearLayout>
