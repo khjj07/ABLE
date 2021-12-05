@@ -57,6 +57,7 @@ public class BlockManager : Singleton<BlockManager>
         else
         {
             string text = "";
+
             for (int i = 0; i < NodeList.Count; i++)
             {
                 CompiledList.Add(NodeList[i].Compile(CompiledMesh));
@@ -69,6 +70,7 @@ public class BlockManager : Singleton<BlockManager>
                 else if (CompiledList[i].command == Command.MoveRight)
                     text = text + "R ";
             }
+            //CompiledList 정렬 코드
             Compiled = true;
             Debug.Log(text);
         }
@@ -210,10 +212,8 @@ public class BlockManager : Singleton<BlockManager>
             Command command = ParseCommand(name);
             Debug.LogWarning(name);
             Debug.LogWarning((int)command);
-            Vector3 CameraPosition = camera.gameObject.transform.position;
-            Vector3 ImagePosition = newImage.transform.position;
             GameObject new_marker = Instantiate(Marker);
-            CommandNode new_node = new CommandNode(command, Vector3.Distance(CameraPosition, ImagePosition), new_marker);
+            CommandNode new_node = new CommandNode(command, newImage.transform.position, new_marker);
 
             NodeList.Add(new_node);
 
@@ -248,7 +248,7 @@ public class BlockManager : Singleton<BlockManager>
         Vector3 CameraPosition = camera.gameObject.transform.position;
         Vector3 ImagePosition = img.transform.position;
         node.marker.transform.position = ImagePosition;
-        node.distance = Vector3.Distance(CameraPosition, ImagePosition);
+        node.position = img.transform.position;
         
 
         if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && node.marker.activeSelf)

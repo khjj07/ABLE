@@ -12,12 +12,12 @@ public enum Command //명령 Enum
 public class CommandNode
 {
     public Command command; // 나중에 정렬되었을 때 다시 첫번째 값들만 추려서(Command)로 변환한다.
-    public float distance;
+    public Vector3 position;
     public GameObject marker;
-    public CommandNode(Command command, float distance, GameObject marker)
+    public CommandNode(Command command, Vector3 position, GameObject marker)
     {
         this.command = command;
-        this.distance = distance;
+        this.position = position;
         this.marker = marker;
     }
     public CommandNode Compile(Mesh mesh)
