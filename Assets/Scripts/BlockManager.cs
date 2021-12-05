@@ -71,6 +71,7 @@ public class BlockManager : Singleton<BlockManager>
                     text = text + "R ";
             }
             //CompiledList 정렬 코드
+            CompiledList.Sort((CommandNode n1, CommandNode n2) => { return (n1.position.z > n2.position.z)? 1:0; });
             Compiled = true;
             Debug.Log(text);
         }
