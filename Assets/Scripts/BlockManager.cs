@@ -52,6 +52,7 @@ public class BlockManager : Singleton<BlockManager>
                 NodeList[i].Decompile(CheckingMesh);
             }
             Compiled = false;
+            NodePointer = 0;
         }
         else
         {
@@ -212,9 +213,10 @@ public class BlockManager : Singleton<BlockManager>
             Vector3 CameraPosition = camera.gameObject.transform.position;
             Vector3 ImagePosition = newImage.transform.position;
             GameObject new_marker = Instantiate(Marker);
-
             CommandNode new_node = new CommandNode(command, Vector3.Distance(CameraPosition, ImagePosition), new_marker);
+
             NodeList.Add(new_node);
+
             this.UpdateAsObservable()
                 .Where(_ => UpdateNode(newImage, new_node))
                 .Subscribe(_ => StartCoroutine(ChangeNodeState(newImage, new_node)))
@@ -240,6 +242,7 @@ public class BlockManager : Singleton<BlockManager>
          
         yield return null;
     }
+
     private bool UpdateNode(ARTrackedImage img, CommandNode node)
     {
         Vector3 CameraPosition = camera.gameObject.transform.position;
@@ -256,8 +259,10 @@ public class BlockManager : Singleton<BlockManager>
         {
             return true;
         }
+
         return false;
     }
+
     void OnEnable() => m_TrackedImageManager.trackedImagesChanged += OnChanged;
 
     void OnDisable() => m_TrackedImageManager.trackedImagesChanged -= OnChanged;
