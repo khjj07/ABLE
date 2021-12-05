@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
         MoveDuration = CommandDuration > MoveDuration ? MoveDuration : CommandDuration;
         //MoveDuration이 CommandDuration보다 작은 경우 CommandDuration으로 변경
     }
+    private void Update()
+    {
+        //Debug.Log(transform.position);
+    }
     private Action DirectionBlocked(Vector3 direction)
     {
         if (direction == Vector3.left)
@@ -47,7 +51,11 @@ public class Player : MonoBehaviour
         {
             MovingFlag = true;
             transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
-                 .OnComplete(() => { MovingFlag = false; }); // direction으로 Offset만큼 Duration동안 이동
+                 .OnComplete(() => { 
+                     MovingFlag = false;
+                     Debug.Log(transform.position);
+                 }); // direction으로 Offset만큼 Duration동안 이동
+
             return DirectionMove(direction);
         }
         return DirectionBlocked(direction);
@@ -65,7 +73,7 @@ public class Player : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward * RayDistinctRange, Color.red);
         return result && hit.collider.CompareTag("Obstacle"); //태그 비교해서 반환
     }
-
+  
     public Action Excute(Command cmd) //커맨드 실행
     {
         if (cmd == Command.MoveForward)

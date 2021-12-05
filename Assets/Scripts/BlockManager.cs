@@ -10,12 +10,13 @@ public class BlockManager : Singleton<BlockManager>
 {
     public Player player; //player참조
     public List<CommandNode> NodeList = new List<CommandNode>();   // 정렬을 위한 list
+    public List<CommandNode> CompiledList = new List<CommandNode>();
     public List<GameObject> MarkerList = new List<GameObject>();
     public GameObject Marker;
     public Stack<Action> ActionStack = new Stack<Action>();
     public float ActDuration = 1f; //명령 Duration
     public int NodePointer = 0; //명령 배열 포인터
-
+    public bool mark = true;
     //상호작용 키 목록
     public KeyCode Play = KeyCode.Alpha1;
     public KeyCode StepForward = KeyCode.Alpha2;
@@ -24,22 +25,75 @@ public class BlockManager : Singleton<BlockManager>
     public KeyCode Pause = KeyCode.Alpha5;
     //상호작용 키 목록
     private bool Playing = false; //중복 실행 방지
+    public Mesh CheckingMesh;
+    public Mesh CompiledMesh;
+    public bool Compiled = false;
     private Vector3 InitialPosition;
     public Camera camera;
     public ARTrackedImageManager m_TrackedImageManager;
 
     public void play()
     {
-        StartCoroutine(PlayCommands());
+        if(!Playing)
+            StartCoroutine(PlayCommands());
+    }
+
+    public void ChangeCompileState()
+    {
+       
+        if (Compiled)
+        {
+            for (int i = 0; i < CompiledList.Count; i++)
+            {
+                CompiledList.Remove(CompiledList[i].Decompile(CheckingMesh));
+            }
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                NodeList[i].Decompile(CheckingMesh);
+            }
+            Compiled = false;
+        }
+        else
+        {
+            string text = "";
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                CompiledList.Add(NodeList[i].Compile(CompiledMesh));
+                if (CompiledList[i].command == Command.MoveBackward)
+                    text = text + "B ";
+                else if (CompiledList[i].command == Command.MoveForward)
+                    text = text + "F ";
+                else if (CompiledList[i].command == Command.MoveLeft)
+                    text = text + "L ";
+                else if (CompiledList[i].command == Command.MoveRight)
+                    text = text + "R ";
+            }
+            Compiled = true;
+            Debug.Log(text);
+        }
+    }
+    public void ChangeMarkState(bool m)
+    {
+        mark = m;
+        if(!m)
+        {
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                NodeList[i].marker.SetActive(false);
+                
+            }
+            NodeList.Clear();
+        }
+        
     }
 
 
     public IEnumerator PlayCommands() //재생 Coroutine
     {
         Playing = true;
-        while (NodePointer < NodeList.Count)
+        while (NodePointer < CompiledList.Count)
         {
-            ActionStack.Push(player.Excute(NodeList[NodePointer].command));
+            ActionStack.Push(player.Excute(CompiledList[NodePointer].command));
             NodePointer++;
             yield return new WaitForSeconds(ActDuration);
         }
@@ -150,29 +204,35 @@ public class BlockManager : Singleton<BlockManager>
     public void AddNode(ARTrackedImage newImage)
     {
         var name = newImage.referenceImage.name.ToLower();
-        Command command = ParseCommand(name);
-        Debug.LogWarning(name);
-        Debug.LogWarning((int)command);
-        Vector3 CameraPosition = camera.gameObject.transform.position;
-        Vector3 ImagePosition = newImage.transform.position;
-        GameObject new_marker = Instantiate(Marker);
-        
-        CommandNode new_node = new CommandNode(command, Vector3.Distance(CameraPosition, ImagePosition), new_marker);
-        NodeList.Add(new_node);
-        this.UpdateAsObservable()
-            .Where(_=> UpdateNode(newImage, new_node))
-            .Subscribe(_ => StartCoroutine(ChangeNodeState(newImage, new_node)))
-            .AddTo(gameObject); //노드 업데이트 스트림
+        if(name.Contains("block"))
+        {
+            Command command = ParseCommand(name);
+            Debug.LogWarning(name);
+            Debug.LogWarning((int)command);
+            Vector3 CameraPosition = camera.gameObject.transform.position;
+            Vector3 ImagePosition = newImage.transform.position;
+            GameObject new_marker = Instantiate(Marker);
+
+            CommandNode new_node = new CommandNode(command, Vector3.Distance(CameraPosition, ImagePosition), new_marker);
+            NodeList.Add(new_node);
+            this.UpdateAsObservable()
+                .Where(_ => UpdateNode(newImage, new_node))
+                .Subscribe(_ => StartCoroutine(ChangeNodeState(newImage, new_node)))
+                .AddTo(gameObject); //노드 업데이트 스트림
+        }
     }
+
+
+
     private IEnumerator ChangeNodeState(ARTrackedImage img, CommandNode node)
     {
-        if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking && !(node.marker.activeSelf))
+        if (mark && img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking && !(node.marker.activeSelf))
         {
             node.marker.SetActive(true);
             NodeList.Add(node);
         }
         yield return new WaitForSeconds(1f);
-        if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && node.marker.activeSelf)
+        if (!mark || (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && node.marker.activeSelf))
         {
             node.marker.SetActive(false);
             NodeList.Remove(node);
@@ -186,6 +246,8 @@ public class BlockManager : Singleton<BlockManager>
         Vector3 ImagePosition = img.transform.position;
         node.marker.transform.position = ImagePosition;
         node.distance = Vector3.Distance(CameraPosition, ImagePosition);
+        
+
         if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && node.marker.activeSelf)
         {
             return true;
@@ -195,11 +257,6 @@ public class BlockManager : Singleton<BlockManager>
             return true;
         }
         return false;
-    }
-
-    void Update()
-    {
-      //정렬 코드 여기에
     }
     void OnEnable() => m_TrackedImageManager.trackedImagesChanged += OnChanged;
 

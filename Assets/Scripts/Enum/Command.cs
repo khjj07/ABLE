@@ -20,6 +20,16 @@ public class CommandNode
         this.distance = distance;
         this.marker = marker;
     }
+    public CommandNode Compile(Mesh mesh)
+    {
+        marker.GetComponent<MeshFilter>().mesh = mesh;
+        return this;
+    }
 
+    public CommandNode Decompile(Mesh mesh)
+    {
+        marker.GetComponent<MeshFilter>().mesh = mesh;
+        return this;
+    }
 
 }

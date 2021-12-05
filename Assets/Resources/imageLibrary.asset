@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
-  m_Name: imageLibrary
+  m_Name: ImageLibrary
   m_EditorClassIdentifier: 
   m_GuidLow: 5364261242221251986
   m_GuidHigh: 5406414229034447490
@@ -23,7 +23,7 @@ MonoBehaviour:
       m_GuidHigh: 4186564892023482808
     m_Size: {x: 0.1, y: 0.051525198}
     m_SpecifySize: 1
-    m_Name: backward
+    m_Name: backwardBlock
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5466348896942290625
@@ -33,7 +33,7 @@ MonoBehaviour:
       m_GuidHigh: 9913370213491217113
     m_Size: {x: 0.1, y: 0.05242915}
     m_SpecifySize: 1
-    m_Name: forward
+    m_Name: forwardBlock
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5688967822531839435
@@ -43,5 +43,15 @@ MonoBehaviour:
       m_GuidHigh: 2171937035377730346
     m_Size: {x: 0.1, y: 0.057942618}
     m_SpecifySize: 1
-    m_Name: right
+    m_Name: rightBlock
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4712311098181708546
+      m_GuidHigh: 12586256184910813834
+    m_SerializedTextureGuid:
+      m_GuidLow: 6981872604628070097
+      m_GuidHigh: 1207645426262794762
+    m_Size: {x: 0.06361887, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: bread
     m_Texture: {fileID: 0}
