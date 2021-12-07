@@ -6,16 +6,15 @@ using System.Text;
 
 public class MapManager : MonoBehaviour
 {
-	Transform target;
 	public GameObject wallPrefab;
 	// Start is called before the first frame update
 	public GameObject[,] Maze;
 	public Vector3 Origin;
-	private Vector3 Dest;
+	public Vector3 Dest;
 	private Board board;
 
-    #region primitiveMap
-    public enum TileType
+	#region primitiveMap
+	public enum TileType
 	{
 		Empty,
 		Wall,
@@ -25,32 +24,24 @@ public class MapManager : MonoBehaviour
 	#endregion
 
 	void Start()
-    {
+	{
 		board = new Board();
 		Origin = new Vector3(0.5f, 1.5f, 0.5f);
-		target = FindObjectOfType<Player>().transform;
-		board.Initialize(10);
+		board.Initialize(25);
 		int destX = board.DestY;
 		int destZ = board.DestX;
-
-		Dest = Origin + new Vector3(destX, 0, destZ);
+		Maze = new GameObject[25, 25];
+		Dest = new Vector3(destX + Origin.x, 0, destZ + Origin.z);
 		UnityMapRender();
 
 	}
 
 	// Update is called once per frame
 	void Update()
-    {
-        
-    }
-
-	public void MissionClear()
 	{
-		if (target.transform.position == Dest)
-		{
-			Debug.Log("미션완료");
-		}
+
 	}
+
 
 	public void UnityMapRender()
 	{
@@ -58,12 +49,12 @@ public class MapManager : MonoBehaviour
 		{
 			for (int z = 0; z < board.Size; ++z)  // 좌우 
 			{
-				if (x == board.DestY || z == board.DestY)
+				if (x == board.DestY && z == board.DestY)
 					continue;
 
 				if (board.Tile[x, z] != TileType.Empty)
 				{
-					Maze[x, z] = Instantiate(wallPrefab, Origin + new Vector3(x, 0, z), transform.rotation);
+					Maze[x, z] = Instantiate(wallPrefab, new Vector3(Origin.x + (float)x, 1.5f, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
 				}
 			}
 		}
@@ -87,6 +78,8 @@ public class MapManager : MonoBehaviour
 				return;
 			Tile = new TileType[size, size];
 			Size = size;
+
+
 
 			DestY = Size - 2;
 			DestX = Size - 2;
@@ -146,7 +139,7 @@ public class MapManager : MonoBehaviour
 				}
 			}
 		}
-	
+
 	}
 
 
