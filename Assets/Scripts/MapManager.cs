@@ -26,8 +26,14 @@ public class MapManager : MonoBehaviour
 
 	void Start()
     {
+		board = new Board();
+		Origin = new Vector3(0.5f, 1.5f, 0.5f);
 		target = FindObjectOfType<Player>().transform;
 		board.Initialize(10);
+		int destX = board.DestY;
+		int destZ = board.DestX;
+
+		Dest = Origin + new Vector3(destX, 0, destZ);
 		UnityMapRender();
 
 	}
@@ -57,7 +63,7 @@ public class MapManager : MonoBehaviour
 
 				if (board.Tile[x, z] != TileType.Empty)
 				{
-					Maze[x, z] = Instantiate(wallPrefab, Origin + new Vector3(x, 0, z), transform.rotation); ;
+					Maze[x, z] = Instantiate(wallPrefab, Origin + new Vector3(x, 0, z), transform.rotation);
 				}
 			}
 		}
