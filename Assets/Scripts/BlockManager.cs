@@ -101,7 +101,7 @@ public class BlockManager : Singleton<BlockManager>
             yield return new WaitForSeconds(ActDuration);
         }
         Playing = false;
-
+        NodePointer = 0;
         yield return 0;
     }
     public IEnumerator StepForwardCommands() //한 블럭씩 재생 Coroutine
@@ -207,8 +207,6 @@ public class BlockManager : Singleton<BlockManager>
     public void AddNode(ARTrackedImage newImage)
     {
         var name = newImage.referenceImage.name.ToLower();
-        if(name.Contains("block"))
-        {
             Command command = ParseCommand(name);
             Debug.LogWarning(name);
             Debug.LogWarning((int)command);
@@ -221,7 +219,6 @@ public class BlockManager : Singleton<BlockManager>
                 .Where(_ => UpdateNode(newImage, new_node))
                 .Subscribe(_ => StartCoroutine(ChangeNodeState(newImage, new_node)))
                 .AddTo(gameObject); //노드 업데이트 스트림
-        }
     }
 
 
