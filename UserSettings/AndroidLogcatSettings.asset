@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "2870da410c3f7ece",
         "name": "com.DefaultCompany.ProjectAble",
-        "processId": 2942,
+        "processId": 6880,
         "exited": false
     },
     "m_SelectedPriority": 2,
@@ -90,6 +90,12 @@
             "deviceId": "2870da410c3f7ece",
             "name": "com.DefaultCompany.ProjectAble",
             "processId": 2942,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 6880,
             "exited": false
         }
     ],
