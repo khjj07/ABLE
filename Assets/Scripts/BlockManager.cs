@@ -70,9 +70,23 @@ public class BlockManager : Singleton<BlockManager>
                 else if (CompiledList[i].command == Command.MoveRight)
                     text = text + "R ";
             }
+            text = text + "\n";
+           
             //CompiledList 정렬 코드
-            CompiledList.Sort((CommandNode n1, CommandNode n2) => { return (n1.position.z > n2.position.z)? 1:0; });
+            Camera cam = Camera.main;
+            CompiledList.Sort((CommandNode n1, CommandNode n2) => { return (cam.WorldToScreenPoint(n1.position).y < cam.WorldToScreenPoint(n2.position).y)? 1:0; });
             Compiled = true;
+            for (int i = 0; i < CompiledList.Count; i++)
+            {
+                if (CompiledList[i].command == Command.MoveBackward)
+                    text = text + "B ";
+                else if (CompiledList[i].command == Command.MoveForward)
+                    text = text + "F ";
+                else if (CompiledList[i].command == Command.MoveLeft)
+                    text = text + "L ";
+                else if (CompiledList[i].command == Command.MoveRight)
+                    text = text + "R ";
+            }
             Debug.Log(text);
         }
     }
