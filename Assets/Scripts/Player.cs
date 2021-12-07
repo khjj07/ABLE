@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float MoveDuration = 0.5f;//움직임 Duration
     public float RayDistinctRange = 1f; //장애물 감지 Ray 거리
     private bool MovingFlag = false; //Tween 중복 방지
-
+    public Animator animator;
     void Start()
     {
         float CommandDuration = BlockManager.instance.ActDuration;
@@ -45,15 +45,29 @@ public class Player : MonoBehaviour
             return Action.MoveBackward;
         return Action.None;
     }
+    private void RotateToDirection(Vector3 direction)
+    {
+        if (direction == Vector3.forward)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        if (direction == Vector3.back)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        if (direction == Vector3.left)
+            transform.rotation = Quaternion.Euler(0, -90, 0);
+        if (direction == Vector3.right)
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+    }
     private Action Move(Vector3 direction) // 움직임
     {
         if (!MovingFlag && !CheckObstacle(direction)) //Tween재생 확인 및 장애물 유무 체크
         {
             MovingFlag = true;
+            animator.SetInteger("Walk", 1);
+            RotateToDirection(direction);
             transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
                  .OnComplete(() => { 
                      MovingFlag = false;
-                     Debug.Log(transform.position);
+                    // Debug.Log(transform.position);
+                     animator.SetInteger("Walk", 0);
                  }); // direction으로 Offset만큼 Duration동안 이동
 
             return DirectionMove(direction);
