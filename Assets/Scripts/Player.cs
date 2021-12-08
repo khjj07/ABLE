@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UniRx.Triggers;
 using UniRx;
+
 public class Player : MonoBehaviour
 {
     public float MoveOffset = 1f;//움직임 Offset
@@ -91,19 +92,23 @@ public class Player : MonoBehaviour
     }
     private Action Move(Vector3 direction) // 움직임
     {
-        if (!MovingFlag && !CheckObstacle(direction)) //Tween재생 확인 및 장애물 유무 체크
+        
+        if (!MovingFlag ) //Tween재생 확인 및 장애물 유무 체크
         {
-            MovingFlag = true;
-            animator.SetInteger("Walk", 1);
             RotateToDirection(direction);
-            transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
-                 .OnComplete(() => { 
-                     MovingFlag = false;
-                    // Debug.Log(transform.position);
-                     animator.SetInteger("Walk", 0);
-                 }); // direction으로 Offset만큼 Duration동안 이동
+            if (!CheckObstacle(direction))
+            {
+                MovingFlag = true;
 
-            return DirectionMove(direction);
+                animator.SetInteger("Walk", 1);
+                transform.DOMove(transform.position + direction * MoveOffset, MoveDuration)
+                     .OnComplete(() => {
+                         MovingFlag = false;
+                     // Debug.Log(transform.position);
+                     animator.SetInteger("Walk", 0);
+                     }); // direction으로 Offset만큼 Duration동안 이동
+                return DirectionMove(direction);
+            }
         }
         return DirectionBlocked(direction);
     }
