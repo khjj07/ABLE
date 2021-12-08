@@ -26,7 +26,7 @@ public class MapManager : MonoBehaviour
 	void Start()
 	{
 		board = new Board();
-		Origin = new Vector3(0.5f, 1.5f, 0.5f);
+		//Origin = new Vector3(0.5f, 1.5f, 0.5f);
 		board.Initialize(25);
 		int destX = board.DestY;
 		int destZ = board.DestX;

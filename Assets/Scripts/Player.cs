@@ -13,6 +13,28 @@ public class Player : MonoBehaviour
     public Animator animator;
     void Start()
     {
+        Character character = GameObject.Find("Models").GetComponent<ModelManager>().type;
+        if(character == Character.Cat)
+        {
+            transform.Find("Cat").gameObject.SetActive(true);
+        }
+        else if(character == Character.Chicken)
+        {
+            transform.Find("Chicken").gameObject.SetActive(true);
+        }
+        else if (character == Character.Dog)
+        {
+            transform.Find("Dog").gameObject.SetActive(true);
+        }
+        else if (character == Character.Lion)
+        {
+            transform.Find("Lion").gameObject.SetActive(true);
+        }
+        else if (character == Character.Penguin)
+        {
+            transform.Find("Penguin").gameObject.SetActive(true);
+        }
+        Destroy(GameObject.Find("Models"));
         float CommandDuration = BlockManager.instance.ActDuration;
         MoveDuration = CommandDuration > MoveDuration ? MoveDuration : CommandDuration;
         //MoveDuration이 CommandDuration보다 작은 경우 CommandDuration으로 변경

@@ -1,43 +1,13 @@
 {
     "m_SelectedDeviceId": "2870da410c3f7ece",
     "m_SelectedPackage": {
-        "deviceId": "2870da410c3f7ece",
-        "name": "com.DefaultCompany.ProjectAble",
-        "processId": 6880,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 2,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 17319,
-            "exited": true
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 27458,
-            "exited": true
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 32243,
-            "exited": true
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 1407,
-            "exited": true
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 12448,
-            "exited": true
-        },
         {
             "deviceId": "2870da410c3f7ece",
             "name": "com.sec.android.app.launcher",
@@ -47,55 +17,37 @@
         {
             "deviceId": "2870da410c3f7ece",
             "name": "com.DefaultCompany.ProjectAble",
-            "processId": 25530,
-            "exited": false
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 27668,
-            "exited": false
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 29501,
-            "exited": false
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 25200,
-            "exited": false
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 26552,
-            "exited": false
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
             "processId": 30674,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "2870da410c3f7ece",
             "name": "com.DefaultCompany.ProjectAble",
             "processId": 691,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "2870da410c3f7ece",
             "name": "com.DefaultCompany.ProjectAble",
             "processId": 2942,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "2870da410c3f7ece",
             "name": "com.DefaultCompany.ProjectAble",
             "processId": 6880,
+            "exited": true
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.cashwalk.cashwalk",
+            "processId": 23321,
+            "exited": true
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.sec.android.app.camera",
+            "processId": 3172,
             "exited": false
         }
     ],
