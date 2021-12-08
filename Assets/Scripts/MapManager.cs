@@ -11,6 +11,7 @@ public class MapManager : MonoBehaviour
 	public GameObject[,] Maze;
 	public Vector3 Origin;
 	public Vector3 Dest;
+	public Transform MazeParent;
 	private Board board;
 
 	#region primitiveMap
@@ -54,7 +55,8 @@ public class MapManager : MonoBehaviour
 
 				if (board.Tile[x, z] != TileType.Empty)
 				{
-					Maze[x, z] = Instantiate(wallPrefab, new Vector3(Origin.x + (float)x, 1.5f, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
+					Maze[x, z] = Instantiate(wallPrefab, new Vector3(Origin.x + (float)x, 0, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
+					Maze[x, z].transform.parent = MazeParent.transform;
 				}
 			}
 		}

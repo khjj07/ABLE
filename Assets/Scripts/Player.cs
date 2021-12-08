@@ -14,25 +14,36 @@ public class Player : MonoBehaviour
     void Start()
     {
         Character character = GameObject.Find("Models").GetComponent<ModelManager>().type;
+        GameObject newCharacter;
         if(character == Character.Cat)
         {
-            transform.Find("Cat").gameObject.SetActive(true);
+            newCharacter = transform.Find("Cat").gameObject;
+            newCharacter.SetActive(true);
+            animator=newCharacter.GetComponent<Animator>();
         }
         else if(character == Character.Chicken)
         {
-            transform.Find("Chicken").gameObject.SetActive(true);
+            newCharacter = transform.Find("Chicken").gameObject;
+            newCharacter.SetActive(true);
+            animator = newCharacter.GetComponent<Animator>();
         }
         else if (character == Character.Dog)
         {
-            transform.Find("Dog").gameObject.SetActive(true);
+            newCharacter = transform.Find("Dog").gameObject;
+            newCharacter.SetActive(true);
+            animator=newCharacter.GetComponent<Animator>();
         }
         else if (character == Character.Lion)
         {
-            transform.Find("Lion").gameObject.SetActive(true);
+            newCharacter = transform.Find("Lion").gameObject;
+            newCharacter.SetActive(true);
+            animator=newCharacter.GetComponent<Animator>();
         }
         else if (character == Character.Penguin)
         {
-            transform.Find("Penguin").gameObject.SetActive(true);
+            newCharacter = transform.Find("Penguin").gameObject;
+            newCharacter.SetActive(true);
+            animator = newCharacter.GetComponent<Animator>();
         }
         Destroy(GameObject.Find("Models"));
         float CommandDuration = BlockManager.instance.ActDuration;
