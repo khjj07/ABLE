@@ -7,10 +7,12 @@ using System.Text;
 public class MapManager : MonoBehaviour
 {
 	public GameObject wallPrefab;
+	public GameObject endPrefab;
 	// Start is called before the first frame update
-	public GameObject[,] Maze;
-	public Vector3 Origin;
-	public Vector3 Dest;
+	private static GameObject[,] Maze;
+	private static GameObject endPoint;
+	public static Vector3 Origin;
+	private static Vector3 Dest;
 	public Transform MazeParent;
 	private Board board;
 
@@ -27,14 +29,8 @@ public class MapManager : MonoBehaviour
 	void Start()
 	{
 		board = new Board();
-		//Origin = new Vector3(0.5f, 1.5f, 0.5f);
 		board.Initialize(25);
-		int destX = board.DestY;
-		int destZ = board.DestX;
-		Maze = new GameObject[25, 25];
-		Dest = new Vector3(destX + Origin.x, 0, destZ + Origin.z);
 		UnityMapRender();
-
 	}
 
 	// Update is called once per frame
@@ -43,7 +39,6 @@ public class MapManager : MonoBehaviour
 
 	}
 
-
 	public void UnityMapRender()
 	{
 		for (int x = 0; x < board.Size; ++x) // »óÇÏ
@@ -51,7 +46,10 @@ public class MapManager : MonoBehaviour
 			for (int z = 0; z < board.Size; ++z)  // ÁÂ¿ì 
 			{
 				if (x == board.DestY && z == board.DestY)
-					continue;
+                {
+					endPoint = Instantiate(endPrefab, new Vector3(Origin.x + (float)x, 0, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
+					endPoint.transform.parent = MazeParent.transform;
+                }
 
 				if (board.Tile[x, z] != TileType.Empty)
 				{
@@ -78,13 +76,16 @@ public class MapManager : MonoBehaviour
 
 			if (size % 2 == 0)
 				return;
-			Tile = new TileType[size, size];
-			Size = size;
-
-
 
 			DestY = Size - 2;
 			DestX = Size - 2;
+
+			Tile = new TileType[size, size];
+			Size = size;
+
+			Maze = new GameObject[size, size];
+			Dest = new Vector3(DestY + Origin.x, 0, DestX + Origin.z);
+
 			GenerateBySideWinder();
 		}
 
