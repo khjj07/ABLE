@@ -453,8 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 8933829028649273046, guid: 4279f5ffe4846204dbbba1db45e52bae, type: 3}
-  Origin: {x: -1, y: 0, z: -1}
-  Dest: {x: 0, y: 0, z: 0}
+  endPrefab: {fileID: 0}
   MazeParent: {fileID: 744852052}
 --- !u!1 &326316508
 GameObject:
@@ -1461,6 +1460,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1427205404}
     m_Modifications:
+    - target: {fileID: 863659896883824453, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224184582882184433, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4706145437141163708, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1517,8 +1524,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5334944769232668359, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7249032673995699467, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249032673995699467, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982411307911995072, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112342757925562167, guid: 7d7ea65b2b026f14389495ee0a33ad2f, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
