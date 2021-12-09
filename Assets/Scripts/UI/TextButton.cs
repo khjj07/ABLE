@@ -24,5 +24,8 @@ public class TextButton : MonoBehaviour
         string new_queue = textQueue.Dequeue();
         textQueue.Enqueue(new_queue);
         textUI.text = new_queue;
+        
     }
+
+
 }
