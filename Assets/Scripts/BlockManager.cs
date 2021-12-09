@@ -31,6 +31,7 @@ public class BlockManager : Singleton<BlockManager>
     private Vector3 InitialPosition;
     public Camera camera;
     public ARTrackedImageManager m_TrackedImageManager;
+    public BlockArea blockArea;
 
     public void play()
     {
@@ -45,49 +46,26 @@ public class BlockManager : Singleton<BlockManager>
         {
             for (int i = 0; i < CompiledList.Count; i++)
             {
-                CompiledList.Remove(CompiledList[i].Decompile(CheckingMesh));
+                blockArea.DequeueBlock();
             }
-            for (int i = 0; i < NodeList.Count; i++)
-            {
-                NodeList[i].Decompile(CheckingMesh);
-            }
+            CompiledList.Clear();
             Compiled = false;
             NodePointer = 0;
         }
         else
         {
-            string text = "";
-
             for (int i = 0; i < NodeList.Count; i++)
             {
                 CompiledList.Add(NodeList[i].Compile(CompiledMesh));
-                if (CompiledList[i].command == Command.MoveBackward)
-                    text = text + "B ";
-                else if (CompiledList[i].command == Command.MoveForward)
-                    text = text + "F ";
-                else if (CompiledList[i].command == Command.MoveLeft)
-                    text = text + "L ";
-                else if (CompiledList[i].command == Command.MoveRight)
-                    text = text + "R ";
             }
-            text = text + "\n";
-           
             //CompiledList 정렬 코드
             Camera cam = Camera.main;
             CompiledList.Sort((CommandNode n1, CommandNode n2) => { return (cam.WorldToScreenPoint(n1.position).y < cam.WorldToScreenPoint(n2.position).y)? 1:0; });
             Compiled = true;
             for (int i = 0; i < CompiledList.Count; i++)
             {
-                if (CompiledList[i].command == Command.MoveBackward)
-                    text = text + "B ";
-                else if (CompiledList[i].command == Command.MoveForward)
-                    text = text + "F ";
-                else if (CompiledList[i].command == Command.MoveLeft)
-                    text = text + "L ";
-                else if (CompiledList[i].command == Command.MoveRight)
-                    text = text + "R ";
+                blockArea.EnqueueBlock(CompiledList[i].command);    
             }
-            Debug.Log(text);
         }
     }
     public void ChangeMarkState(bool m)
@@ -112,10 +90,17 @@ public class BlockManager : Singleton<BlockManager>
         while (NodePointer < CompiledList.Count)
         {
             ActionStack.Push(player.Excute(CompiledList[NodePointer].command));
+            blockArea.DequeueBlock();
             NodePointer++;
             yield return new WaitForSeconds(ActDuration);
         }
         Playing = false;
+        GameStateManager.instance.Next();
+        for (int i = 0; i < CompiledList.Count; i++)
+        {
+            blockArea.EnqueueBlock(CompiledList[i].command);
+        }
+        GameStateManager.instance.Next();
         NodePointer = 0;
         yield return 0;
     }
@@ -261,8 +246,10 @@ public class BlockManager : Singleton<BlockManager>
         Vector3 ImagePosition = img.transform.position;
         node.marker.transform.position = ImagePosition;
         node.position = img.transform.position;
-        
-
+        if(!Compiled)
+        {
+            node.Decompile(CheckingMesh);
+        }
         if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && node.marker.activeSelf)
         {
             return true;

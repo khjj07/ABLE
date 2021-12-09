@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "2870da410c3f7ece",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "2870da410c3f7ece",
+        "name": "com.DefaultCompany.ProjectAble",
+        "processId": 18836,
         "exited": false
     },
     "m_SelectedPriority": 2,
@@ -13,12 +13,6 @@
             "name": "com.sec.android.app.launcher",
             "processId": 7154,
             "exited": false
-        },
-        {
-            "deviceId": "2870da410c3f7ece",
-            "name": "com.DefaultCompany.ProjectAble",
-            "processId": 30674,
-            "exited": true
         },
         {
             "deviceId": "2870da410c3f7ece",
@@ -48,6 +42,126 @@
             "deviceId": "2870da410c3f7ece",
             "name": "com.sec.android.app.camera",
             "processId": 3172,
+            "exited": true
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.cashwalk.cashwalk",
+            "processId": 1919,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 1609,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 29683,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 8064,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 10064,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 13397,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 16524,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 18399,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 20325,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 21143,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 1901,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 3588,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 5495,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 8147,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 9148,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 11468,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 13391,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 15748,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 17227,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 18836,
             "exited": false
         }
     ],

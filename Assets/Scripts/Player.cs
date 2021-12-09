@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
             animator = newCharacter.GetComponent<Animator>();
         }
         Destroy(GameObject.Find("Models"));
+        GameObject.Find("Play Scene").SetActive(false);
         float CommandDuration = BlockManager.instance.ActDuration;
         MoveDuration = CommandDuration > MoveDuration ? MoveDuration : CommandDuration;
         //MoveDuration이 CommandDuration보다 작은 경우 CommandDuration으로 변경
