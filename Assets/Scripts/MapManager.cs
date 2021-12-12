@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 
-public class MapManager : MonoBehaviour
+public class MapManager : Singleton<MapManager>
 {
 	public GameObject wallPrefab;
 	public GameObject endPrefab;
 	// Start is called before the first frame update
-	private static GameObject[,] Maze;
-	private static GameObject endPoint;
-	public static Vector3 Origin;
-	private static Vector3 Dest;
+	private GameObject[,] Maze;
+	private GameObject endPoint;
+	public  Vector3 Origin;
+	public Vector3 Dest;	// 만지지 않는 것이 좋습니다.
 	public Transform MazeParent;
 	private Board board;
+	public int Size { get { return Size; } set { Size = value; } }
 
 	#region primitiveMap
 	public enum TileType
@@ -29,7 +30,9 @@ public class MapManager : MonoBehaviour
 	void Start()
 	{
 		board = new Board();
-		board.Initialize(25);
+		board.Initialize(Size);
+		Maze = new GameObject[Size, Size];
+		Dest = new Vector3(board.DestY + Origin.x, 0, board.DestX + Origin.z);
 		UnityMapRender();
 	}
 
@@ -83,8 +86,6 @@ public class MapManager : MonoBehaviour
 			Tile = new TileType[size, size];
 			Size = size;
 
-			Maze = new GameObject[size, size];
-			Dest = new Vector3(DestY + Origin.x, 0, DestX + Origin.z);
 
 			GenerateBySideWinder();
 		}
