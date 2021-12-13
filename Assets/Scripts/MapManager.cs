@@ -11,11 +11,11 @@ public class MapManager : Singleton<MapManager>
 	// Start is called before the first frame update
 	private GameObject[,] Maze;
 	private GameObject endPoint;
-	public  Vector3 Origin;
-	public Vector3 Dest;	// 만지지 않는 것이 좋습니다.
+	public Vector3 Origin;
+	public Vector3 Dest;	
 	public Transform MazeParent;
 	private Board board;
-	public int Size { get { return Size; } set { Size = value; } }
+	public int Size { get; set; }
 
 	#region primitiveMap
 	public enum TileType
@@ -29,6 +29,7 @@ public class MapManager : Singleton<MapManager>
 
 	void Start()
 	{
+		Size = 25;
 		board = new Board();
 		board.Initialize(Size);
 		Maze = new GameObject[Size, Size];
@@ -48,11 +49,11 @@ public class MapManager : Singleton<MapManager>
 		{
 			for (int z = 0; z < board.Size; ++z)  // 좌우 
 			{
-				if (x == board.DestY && z == board.DestY)
+				/*if (x == board.DestY && z == board.DestY)
                 {
 					endPoint = Instantiate(endPrefab, new Vector3(Origin.x + (float)x, 0, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
 					endPoint.transform.parent = MazeParent.transform;
-                }
+                }*/
 
 				if (board.Tile[x, z] != TileType.Empty)
 				{
@@ -145,6 +146,5 @@ public class MapManager : Singleton<MapManager>
 		}
 
 	}
-
 
 }
