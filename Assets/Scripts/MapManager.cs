@@ -49,10 +49,11 @@ public class MapManager : Singleton<MapManager>
 		{
 			for (int z = 0; z < board.Size; ++z)  // аб©Л 
 			{
-                if (x == board.DestY && z == board.DestX)
+
+				if (x == board.DestY && z == board.DestY)
                 {
-                    endPoint = Instantiate(endPrefab, new Vector3(Origin.x + (float)x, 0f, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
-                    endPoint.transform.parent = MazeParent.transform;
+					endPoint = Instantiate(endPrefab, new Vector3(Origin.x + (float)x, 0, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
+					endPoint.transform.parent = MazeParent.transform;
                 }
 
                 if (board.Tile[x, z] != TileType.Empty)
