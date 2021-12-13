@@ -55,7 +55,6 @@ public class MapManager : Singleton<MapManager>
 					endPoint = Instantiate(endPrefab, new Vector3(Origin.x + (float)x, 0, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
 					endPoint.transform.parent = MazeParent.transform;
                 }
-
                 if (board.Tile[x, z] != TileType.Empty)
 				{
 					Maze[x, z] = Instantiate(wallPrefab, new Vector3(Origin.x + (float)x, 0f, Origin.z + (float)z), new Quaternion(0f, 0f, 0f, 0f));
