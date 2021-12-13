@@ -5,12 +5,11 @@ using UnityEngine.Events;
 
 public class EndPoint : MonoBehaviour
 {
-
-    public UnityEvent UI;
     // Start is called before the first frame update
+    public GameObject Clear;
     void Start()
     {
-        
+        Clear = GameObject.Find("Clear");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +18,7 @@ public class EndPoint : MonoBehaviour
         {
             Destroy(gameObject, 1f);
             Debug.Log("Game Clear");
-            UI.Invoke();
+            Clear.SetActive(true);
         }
     }
 
