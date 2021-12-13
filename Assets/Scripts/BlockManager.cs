@@ -44,10 +44,8 @@ public class BlockManager : Singleton<BlockManager>
        
         if (Compiled)
         {
-            for (int i = 0; i < CompiledList.Count; i++)
-            {
-                blockArea.DequeueBlock();
-            }
+
+            blockArea.BlockQueue.Clear();
             CompiledList.Clear();
             Compiled = false;
             NodePointer = 0;
