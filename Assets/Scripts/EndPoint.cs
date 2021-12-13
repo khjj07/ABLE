@@ -10,6 +10,7 @@ public class EndPoint : MonoBehaviour
     void Start()
     {
         Clear = GameObject.Find("Clear");
+        Clear.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
