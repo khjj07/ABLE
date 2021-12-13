@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "2870da410c3f7ece",
         "name": "com.DefaultCompany.ProjectAble",
-        "processId": 28086,
+        "processId": 4824,
         "exited": false
     },
     "m_SelectedPriority": 2,
@@ -60,6 +60,18 @@
             "deviceId": "2870da410c3f7ece",
             "name": "com.DefaultCompany.ProjectAble",
             "processId": 28086,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 30692,
+            "exited": false
+        },
+        {
+            "deviceId": "2870da410c3f7ece",
+            "name": "com.DefaultCompany.ProjectAble",
+            "processId": 4824,
             "exited": false
         }
     ],
