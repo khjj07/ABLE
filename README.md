@@ -1,8 +1,14 @@
 # ABLE
-2021~2022 Gachon University Dept of Software Graduation Project of 고형종-조민정.
 
-‘ABLE’ is an AR-based block coding program that allows children to easily  
-experience block coding and improve their computing thinking skills.
+## Introduction
+<img src="https://user-images.githubusercontent.com/58305490/166175842-d097792c-7a98-4596-94f4-407131a1f23a.png"  width="700" height="370">
 
-* Programming language/API: C# and ARCore.  
-* Development environments: Visual Studio and Unity.
+‘ABLE’ is an AR-based block coding program that allows children to easily experience block coding and improve their computing thinking skills.
+
+This is 2021~2022 Gachon University Dept of Software Graduation Project of Class #3 Team #6 고형종-조민정.
+
+> Programming language/API: C# and ARCore.  
+> Development environments: Visual Studio and Unity.
+
+## Demo (will be modified)
+<img src="https://user-images.githubusercontent.com/58305490/167360053-a9ab8b84-fdbb-4812-a2a0-0f442e9758e0.gif"  width="700" height="370">
