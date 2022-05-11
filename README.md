@@ -14,3 +14,12 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
 <img src="https://user-images.githubusercontent.com/58305490/167360053-a9ab8b84-fdbb-4812-a2a0-0f442e9758e0.gif"  width="700" height="370">
 
 ## Build Information (will be modified)
+
+* Software environment  
+  * Unity:  
+  * ARCore:  
+  * Visual Studio:  
+<br/>
+
+* Build instruction
+  * Download Unity Hub & install: https://unity3d.com/kr/get-unity/download
