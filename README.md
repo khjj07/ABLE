@@ -17,9 +17,9 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
 
 * Software environment  
   * Unity: 2020.3.4f1
-  * AR Foundation 4.1.7
-  * DOTween 1.2.623
-  * UniRx 7.1.0
+  * AR Foundation: 4.1.7
+  * DOTween: 1.2.623
+  * UniRx: 7.1.0
   * ARCore:  
   * Visual Studio:  
 <br/>
