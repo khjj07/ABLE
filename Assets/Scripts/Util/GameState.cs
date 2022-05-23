@@ -16,13 +16,13 @@ public class GameState : MonoBehaviour
     */
     public void OnStateEnter()
     {
-        //gameObject.SetActive(true);
+        gameObject.SetActive(true);
         onStateEnableEvent.Invoke();
     }
 
     public void OnStateExit()
     {
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
         onStateExitEvent.Invoke();
     }
 

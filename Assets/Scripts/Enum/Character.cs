@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum Character
 {
-    Cat,Chicken,Dog,Lion,Penguin
+    Cat,Chicken,Dog,Lion,Penguin,None
 }

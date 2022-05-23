@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: CharacterLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 5473099407626129471
+  m_GuidHigh: 7288149864694094506
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 5478732245709872172
+      m_GuidHigh: 18241470600577496465
+    m_SerializedTextureGuid:
+      m_GuidLow: 12034854602459264218
+      m_GuidHigh: 3017639188168232312
+    m_Size: {x: 0.8268398, y: 1}
+    m_SpecifySize: 0
+    m_Name: cat
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5357354136786856314
+      m_GuidHigh: 13731687659291319997
+    m_SerializedTextureGuid:
+      m_GuidLow: 1059646523131098983
+      m_GuidHigh: 810501260165359768
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: chicken
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4989228513451209406
+      m_GuidHigh: 3297125975060309902
+    m_SerializedTextureGuid:
+      m_GuidLow: 2271196055909650592
+      m_GuidHigh: 1377464393908959353
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: penguin
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5550532926454949821
+      m_GuidHigh: 5805542252813975953
+    m_SerializedTextureGuid:
+      m_GuidLow: 8999360308261014862
+      m_GuidHigh: 10879137995820386587
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: dog
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4774926005603473491
+      m_GuidHigh: 8293720323244614042
+    m_SerializedTextureGuid:
+      m_GuidLow: 5054190718603599895
+      m_GuidHigh: 15906575639346591098
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: lion
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4872296409562711453
+      m_GuidHigh: 16215786949759446430
+    m_SerializedTextureGuid:
+      m_GuidLow: 3406005992576865268
+      m_GuidHigh: 2909502648122929083
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: left
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4838904357940013603
+      m_GuidHigh: 527274816698350741
+    m_SerializedTextureGuid:
+      m_GuidLow: 11724245099958914451
+      m_GuidHigh: 17565790782920578504
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: backward
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5518482922564096836
+      m_GuidHigh: 12452589559552417935
+    m_SerializedTextureGuid:
+      m_GuidLow: 11935724141493959652
+      m_GuidHigh: 16025711645421865177
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: forward
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5513716882523256839
+      m_GuidHigh: 14344298062294469565
+    m_SerializedTextureGuid:
+      m_GuidLow: 2982564372707672811
+      m_GuidHigh: 2688953746265046459
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: right
+    m_Texture: {fileID: 0}

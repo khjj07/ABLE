@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     void Start()
     {
-        Character character = GameObject.Find("Models").GetComponent<ModelManager>().type;
+        Character character = ModelManager.instance.type;
         GameObject newCharacter;
         if(character == Character.Cat)
         {

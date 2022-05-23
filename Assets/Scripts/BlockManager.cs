@@ -32,6 +32,7 @@ public class BlockManager : Singleton<BlockManager>
     public Camera camera;
     public ARTrackedImageManager m_TrackedImageManager;
     public BlockArea blockArea;
+    private string[] blockWords = { "forward", "backward", "left", "right"};
 
     public void play()
     {
@@ -41,10 +42,8 @@ public class BlockManager : Singleton<BlockManager>
 
     public void ChangeCompileState()
     {
-       
         if (Compiled)
         {
-
             blockArea.BlockQueue.Clear();
             CompiledList.Clear();
             Compiled = false;
@@ -74,7 +73,6 @@ public class BlockManager : Singleton<BlockManager>
             for (int i = 0; i < NodeList.Count; i++)
             {
                 NodeList[i].marker.SetActive(false);
-                
             }
             NodeList.Clear();
         }
@@ -268,7 +266,16 @@ public class BlockManager : Singleton<BlockManager>
     {
         foreach (var newImage in eventArgs.added)
         {
-            AddNode(newImage);
+            foreach(var block in blockWords)
+            {
+                if(newImage.referenceImage.name.Contains(block))
+                {
+                    AddNode(newImage);
+                    break;
+                }
+                    
+            }
+           
         }
     }
 
