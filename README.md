@@ -13,7 +13,7 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
 ## Demo (will be modified)
 <img src="https://user-images.githubusercontent.com/58305490/167360053-a9ab8b84-fdbb-4812-a2a0-0f442e9758e0.gif"  width="700" height="370">
 
-## Build Information (will be modified)
+## Build Information
 
 * Software environment  
   * Unity: 2020.3.4f1
@@ -27,5 +27,6 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
   2. Download & install Unity Hub: https://unity3d.com/kr/get-unity/download
   3. Open Unity Hub and click Installation tab -> click the Add button -> find the version of Unity that you want to install -> install it.
   4. Click Project tab -> click Add button -> Import downloaded ABLE folder.
-  5. Connect your smart phone with PC.
-  6. When you build a program on Unity, it runs on your phone.
+  5. Install the APIs used in this program in Unity. (ARCore, AR Foundation, DOTween, UniRx)
+  6. Connect your smart phone with PC.
+  7. When you build a program on Unity, it runs on your phone.
