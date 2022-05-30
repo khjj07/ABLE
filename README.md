@@ -9,9 +9,13 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
 
 > Programming language/API: C# and ARCore.  
 > Development environments: Visual Studio and Unity.
+<br/>
+
 
 ## Demo video
 <img src="https://user-images.githubusercontent.com/58305490/171005993-9d8f3966-6c92-4f9b-82f0-7edade6054e8.gif"  width="700" height="370">
+<br/>
+
 
 ## Build Information
 
