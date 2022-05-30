@@ -23,7 +23,7 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
 <br/>
 
 * Build instruction
-  1. Download character card images, block command cards images and code of ABLE from ABLE Github repository.
+  1. Download character card images, block command card images and code of ABLE from ABLE Github repository. (https://github.com/khjj07/ABLE)
   2. Download & install Unity Hub: https://unity3d.com/kr/get-unity/download
   3. Open Unity Hub and click Installation tab -> click the Add button -> find the version of Unity that you want to install -> install it.
   4. Click Project tab -> click Add button -> Import downloaded ABLE folder.
