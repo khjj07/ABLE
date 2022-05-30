@@ -19,10 +19,13 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
   * Unity: 2020.3.4f1
   * AR Foundation: 4.1.7
   * DOTween: 1.2.623
-  * UniRx: 7.1.0
-  * ARCore:  
-  * Visual Studio:  
+  * UniRx: 7.1.0 
 <br/>
 
 * Build instruction
-  * Download Unity Hub & install: https://unity3d.com/kr/get-unity/download
+  1. Download character card images, block command cards images and code of ABLE from ABLE Github repository.
+  2. Download & install Unity Hub: https://unity3d.com/kr/get-unity/download
+  3. Open Unity Hub and click Installation tab -> click the Add button -> find the version of Unity that you want to install -> install it.
+  4. Click Project tab -> click Add button -> Import downloaded ABLE folder.
+  5. Connect your smart phone with PC.
+  6. When you build a program on Unity, it runs on your phone.
