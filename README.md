@@ -9,20 +9,28 @@ This is 2021~2022 Gachon University Dept of Software Graduation Project of Class
 
 > Programming language/API: C# and ARCore.  
 > Development environments: Visual Studio and Unity.
+<br/>
 
-## Demo (will be modified)
-<img src="https://user-images.githubusercontent.com/58305490/167360053-a9ab8b84-fdbb-4812-a2a0-0f442e9758e0.gif"  width="700" height="370">
 
-## Build Information (will be modified)
+## Demo video
+<img src="https://user-images.githubusercontent.com/58305490/171005993-9d8f3966-6c92-4f9b-82f0-7edade6054e8.gif"  width="700" height="370">
+<br/>
+
+
+## Build Information
 
 * Software environment  
   * Unity: 2020.3.4f1
   * AR Foundation: 4.1.7
   * DOTween: 1.2.623
-  * UniRx: 7.1.0
-  * ARCore:  
-  * Visual Studio:  
+  * UniRx: 7.1.0 
 <br/>
 
 * Build instruction
-  * Download Unity Hub & install: https://unity3d.com/kr/get-unity/download
+  1. Download character card images, block command card images and code of ABLE from ABLE Github repository. (https://github.com/khjj07/ABLE)
+  2. Download & install Unity Hub: https://unity3d.com/kr/get-unity/download
+  3. Open Unity Hub and click Installation tab -> click the Add button -> find the version of Unity that you want to install -> install it.
+  4. Click Project tab -> click Add button -> Import downloaded ABLE folder.
+  5. Install the APIs used in this program in Unity. (ARCore, AR Foundation, DOTween, UniRx)
+  6. Connect your smart phone with PC.
+  7. When you build a program on Unity, it runs on your phone.
