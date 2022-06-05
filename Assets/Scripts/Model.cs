@@ -9,7 +9,6 @@ public class Model : MonoBehaviour
     void Start()
     {
         Character type = ModelManager.instance.type;
-        ModelManager.instance.selectAvailable.Invoke();
         if (type==Character.Cat)
         {
             transform.Find("Cat").gameObject.SetActive(true);

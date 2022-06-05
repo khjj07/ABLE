@@ -13,6 +13,7 @@ public class ModelManager : Singleton<ModelManager>
     public UnityEvent selectUnavailable;
     public GameObject modelPrefab;
     public GameObject modelInstance;
+    public GameState titleScene;
     private ARTrackedImage image;
 
     private void Awake() 
@@ -52,25 +53,27 @@ public class ModelManager : Singleton<ModelManager>
   
     public bool UpdateModel(ARTrackedImage img, GameObject model)
     {
-        
-        Vector3 ImagePosition = img.transform.position;
-        model.transform.position = ImagePosition;
-
-        if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && model.activeSelf)
+        if(model)
         {
-            return true;
-        }
-        else if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking && !(model.activeSelf))
-        {
-            return true;
-        }
+            Vector3 ImagePosition = img.transform.position;
+            model.transform.position = ImagePosition;
 
+            if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited && model.activeSelf)
+            {
+                return true;
+            }
+            else if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking && !(model.activeSelf))
+            {
+                return true;
+            }
+        }
         return false;
     }
 
     public void DestroyModel()
     {
         Destroy(modelInstance);
+        modelInstance = null;
     }
 
     public IEnumerator ChangeModelState(ARTrackedImage img, GameObject model)
@@ -78,11 +81,20 @@ public class ModelManager : Singleton<ModelManager>
         if (model && img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking)
         {
             model.SetActive(true);
+            selectAvailable.Invoke();
         }
         yield return new WaitForSeconds(1f);
         if (!model || (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited))
         {
             model.SetActive(false);
+            selectUnavailable.Invoke();
+        }
+        yield return new WaitForSeconds(1f);
+        if (img.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Limited)
+        {
+            Destroy(model);
+            modelInstance = null;
+            selectUnavailable.Invoke();
         }
 
         yield return null;
@@ -93,11 +105,12 @@ public class ModelManager : Singleton<ModelManager>
         var name = newImage.referenceImage.name.ToLower();
         if(!modelInstance)
         {
+            selectAvailable.Invoke();
             modelInstance = Instantiate(modelPrefab);
             this.UpdateAsObservable()
                      .Where(_ => UpdateModel(newImage, modelInstance))
                      .Subscribe(_ => StartCoroutine(ChangeModelState(newImage, modelInstance)))
-                     .AddTo(gameObject); //노드 업데이트 스트림
+                     .AddTo(modelInstance); //노드 업데이트 스트림
         }
        
         type = ParseName(name); 
@@ -112,7 +125,8 @@ public class ModelManager : Singleton<ModelManager>
     {
         foreach (var newImage in eventArgs.added)
         {
-            CharacterChecking(newImage);
+            if(titleScene.gameObject.activeSelf || GameStateManager.instance.currentState== titleScene )
+                CharacterChecking(newImage);
         }
     }
 }
